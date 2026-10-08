@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>与件整理書｜MIRARERU project 2027</title>
+<style>
+:root{
+  --bg:#f6f3ee; --card:#ffffff; --ink:#0e1a33; --sub:#5b6577; --line:#e3ddd2;
+  --navy:#0e1a33; --coral:#ff6b4a; --teal:#2bbfa8; --amber:#f5b942; --blue:#5b8cff; --violet:#8a63e6;
+  --ok:#1f9d7a; --tmp:#c98a00; --open:#6b7385; --warn:#d6452b;
+  --okbg:#e3f6ef; --tmpbg:#fff2cf; --openbg:#e9ebf0; --warnbg:#fde7e2;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1220; --card:#121b2e; --ink:#e8ecf5; --sub:#a3adc2; --line:#25324d;
+    --okbg:#10352b; --tmpbg:#3a2f0c; --openbg:#1f2940; --warnbg:#3c1b15; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;line-height:1.75;font-size:15px}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:grid;grid-template-columns:230px 1fr;gap:32px}
+nav.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;padding:16px 0;font-size:13px}
+nav.toc b{display:block;font-size:11px;letter-spacing:.12em;color:var(--coral);margin-bottom:8px}
+nav.toc a{display:block;padding:5px 10px;border-left:2px solid var(--line);color:var(--sub);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-color:var(--coral)}
+main{min-width:0}
+header.hero{grid-column:1 / -1;background:var(--navy);color:#fff;margin:0 -20px 28px;padding:36px 20px 30px}
+header.hero .in{max-width:1140px;margin:0 auto}
+.badge-int{display:inline-block;background:var(--warn);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+header.hero h1{margin:0 0 6px;font-size:30px;line-height:1.35}
+header.hero p{margin:0;color:#c9d1e3}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 24px;margin-top:20px;font-size:13px;color:#c9d1e3}
+.meta span{color:#fff;font-weight:700;display:block;font-size:11px;letter-spacing:.08em;color:var(--amber)}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-bottom:22px}
+section h2{margin:0 0 4px;font-size:21px;display:flex;gap:10px;align-items:baseline}
+section h2 .n{color:var(--coral);font-size:14px;font-weight:700;letter-spacing:.08em}
+section .lead{color:var(--sub);margin:0 0 16px;font-size:14px}
+h3{font-size:16px;margin:22px 0 8px;padding-left:10px;border-left:4px solid var(--teal)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 6px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--navy);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--bg) 55%,transparent)}
+td.k{font-weight:700;white-space:nowrap;background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.tablewrap{overflow-x:auto}
+.src,.st{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:0 6px;margin:0 2px;line-height:1.7;white-space:nowrap}
+.src.doc{background:#e7eefc;color:#2a55c4}
+.src.mtg{background:#fde8e2;color:#c0391f}
+.src.est{background:#fff2cf;color:#8a5f00}
+.src.pub{background:#e3f6ef;color:#166a53}
+@media (prefers-color-scheme: dark){
+ .src.doc{background:#1b2a52;color:#9db8ff}.src.mtg{background:#4a211a;color:#ffab98}
+ .src.est{background:#3a2f0c;color:#f5c75c}.src.pub{background:#10352b;color:#7fdcb9}}
+.st.ok{background:var(--okbg);color:var(--ok)}
+.st.tmp{background:var(--tmpbg);color:var(--tmp)}
+.st.open{background:var(--openbg);color:var(--open)}
+.st.warn{background:var(--warnbg);color:var(--warn)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:14px 0 4px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
+.kpi .v{font-size:26px;font-weight:800;line-height:1.2}
+.kpi .v small{font-size:13px;font-weight:700}
+.kpi .l{font-size:12px;color:var(--sub);margin-top:4px}
+.kpi:nth-child(1) .v{color:var(--coral)}.kpi:nth-child(2) .v{color:var(--teal)}.kpi:nth-child(3) .v{color:var(--blue)}.kpi:nth-child(4) .v{color:var(--tmp)}.kpi:nth-child(5) .v{color:var(--violet)}
+.box{border-radius:10px;padding:12px 14px;margin:12px 0;font-size:13.5px}
+.box.note{background:var(--tmpbg)}.box.warn{background:var(--warnbg)}.box.info{background:var(--openbg)}.box.ok{background:var(--okbg)}
+.box b{display:block;margin-bottom:2px}
+ul.c{margin:6px 0;padding-left:20px}ul.c li{margin:3px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
+.card h4{margin:0 0 6px;font-size:14.5px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--sub);margin-top:10px}
+.cb{display:inline-block;width:14px;height:14px;border:1.5px solid var(--sub);border-radius:3px;vertical-align:-2px;margin-right:6px}
+footer{grid-column:1 / -1;text-align:center;color:var(--sub);font-size:12px;margin-top:6px}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}nav.toc{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:4px}nav.toc b{width:100%}nav.toc a{border:1px solid var(--line);border-radius:99px}.grid2{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff;color:#000;font-size:11px}
+  nav.toc{display:none}.wrap{display:block;padding:0}
+  header.hero{margin:0 0 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{break-inside:avoid-page;border:1px solid #ccc;padding:12px 14px;margin-bottom:10px}
+  th,.src,.st,.kpi{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero"><div class="in">
+  <span class="badge-int">社内用・クライアント提出不可</span>
+  <h1>与件整理書｜MIRARERU project 2027 イベントリニューアル（企画・集客・運営）</h1>
+  <p>貴社資料（企画相談資料15枚）と2026年10月8日の初回打合せで確認した内容を、漏れなく一枚に整理したものです。提案書（10/8打合せ反映版）作成の土台として使います。</p>
+  <div class="meta">
+    <div><span>依頼元</span>株式会社リーディアル 営業企画部（長谷川様・橋本様）</div>
+    <div><span>作成日</span>2026年10月8日（打合せ当日反映）</div>
+    <div><span>作成</span>株式会社新東通信 エステティック通信チーム（成瀬）</div>
+    <div><span>根拠資料</span>企画相談資料PDF／10/8打合せ議事録／当社調査（調査A〜D・調査資料）</div>
+  </div>
+</div></header>
+
+<nav class="toc">
+  <b>目次</b>
+  <a href="#s0">0. この書類の使い方</a>
+  <a href="#s1">1. 案件サマリー</a>
+  <a href="#s2">2. 背景・現状</a>
+  <a href="#s3">3. 解くべき課題</a>
+  <a href="#s4">4. ターゲット</a>
+  <a href="#s5">5. 開催条件</a>
+  <a href="#s6">6. 予算・協賛</a>
+  <a href="#s7">7. 残す／変える／避ける</a>
+  <a href="#s8">8. コンセプト・体験</a>
+  <a href="#s9">9. 集客</a>
+  <a href="#s10">10. 申込・受付・計測</a>
+  <a href="#s11">11. 依頼された提案項目</a>
+  <a href="#s12">12. 進め方・競合・体制</a>
+  <a href="#s13">13. 整合性チェック</a>
+  <a href="#s14">14. 確認済み事項</a>
+  <a href="#s15">15. 未確認・要確認事項</a>
+  <a href="#s16">16. 評価ポイント仮説</a>
+  <a href="#s17">17. アクション</a>
+  <a href="#s18">18. 提案書との対応表</a>
+  <a href="#s19">19. 参照資料・注意</a>
+</nav>
+
+<main>
+
+<section id="s0">
+  <h2><span class="n">00</span>この書類の使い方</h2>
+  <p class="lead">各項目に「どこで言われたか」と「確かさ」を付けています。提案書に書く前に、ここで根拠を確認してください。</p>
+  <div class="grid2">
+    <div class="card"><h4>情報の出どころ（タグ）</h4>
+      <span class="src doc">資料p.N</span> 貴社の企画相談資料（15枚）のページ<br>
+      <span class="src mtg">10/8</span> 10/8打合せでの貴社発言（議事録）<br>
+      <span class="src pub">公開情報</span> 貴社サイト・施設資料など、出典のあるもの<br>
+      <span class="src est">当社推定</span> 当社の計算・仮定・解釈（確定ではない）
+    </div>
+    <div class="card"><h4>確かさ（状態）</h4>
+      <span class="st ok">確定</span> 貴社が明言した／資料に明記<br>
+      <span class="st tmp">暫定</span> 方向性は出たが数値・範囲が未確定<br>
+      <span class="st open">未確認</span> まだ聞けていない・データなし<br>
+      <span class="st warn">要整合</span> 資料と打合せで食い違う、または解釈が割れる
+    </div>
+  </div>
+  <div class="box note"><b>文字起こしについて</b>10/8の議事録はAI文字起こしを基にしています。金額や年数など数字の聞き取りには誤りが混じる可能性があるため、「要確認」と付けた数字は貴社に再確認してください。</div>
+</section>
+
+<section id="s1">
+  <h2><span class="n">01</span>案件サマリー</h2>
+  <p class="lead">一言でいうと、「30代の美容師が自分から行きたくなるミラプロへの刷新」。企画から集客、当日運営まで一貫して設計できる会社を探しています。<span class="src doc">資料p.2</span></p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">500<small>名以上</small></div><div class="l">実来場（関係者除く）。現状から+150名以上 <span class="src doc">p.7</span></div></div>
+    <div class="kpi"><div class="v">30<small>代</small></div><div class="l">最重点。決定権のあるオーナーが最優先 <span class="src mtg">10/8</span></div></div>
+    <div class="kpi"><div class="v">1,500<small>万円以内</small></div><div class="l">税別・会場や音響等の諸費用込み <span class="src mtg">10/8</span></div></div>
+    <div class="kpi"><div class="v">2027<small>年11月</small></div><div class="l">月または火。11/8（月）仮押さえ済み <span class="src mtg">10/8</span></div></div>
+    <div class="kpi"><div class="v">約40<small>社</small></div><div class="l">メーカーブース。協賛の根幹として残す <span class="src mtg">10/8</span></div></div>
+  </div>
+  <div class="tablewrap"><table>
+    <tbody>
+      <tr><td class="k">誰が</td><td>株式会社リーディアル 営業企画部。窓口は長谷川様、打合せには橋本様も同席 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">何を</td><td>美容師向けイベント「MIRARERU project」の2027年開催に向けたリニューアル。コンセプト・演出・会場・告知・受付を一貫して設計するパートナーを求める <span class="src doc">p.2</span></td></tr>
+      <tr><td class="k">なぜ</td><td>30代や、取引の浅い・未取引の美容師との接点を増やしたい。従来は営業の声がけ中心で参加者が広がらず、内容も真面目で「行きたい」と感じる魅力が不足 <span class="src doc">p.6</span> <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">いつ</td><td>2027年11月頃。月曜または火曜が基本。具体日程・時間は会場の空き次第 <span class="src doc">p.9</span> <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">どこで</td><td>グラングリーン大阪（ロートハートスクエアうめきた）を候補。11/8（月）を仮押さえ済みで、下見はこれから。従来は梅田サウスホール <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">いくらで</td><td>総額1,500万円以内（税別）。会場・音響等の諸費用込み。協賛見込みと貴社直接支払分は提案範囲外 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">どう決める</td><td>3社に相談中。企画をもとに概算見積を各社から都度提出してもらい、貴社が依頼先を判断 <span class="src mtg">10/8</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s2">
+  <h2><span class="n">02</span>背景・現状</h2>
+  <p class="lead">イベントの歩みと、今わかっている数字です。</p>
+  <h3>2-1　貴社の理念・強み</h3>
+  <ul class="c">
+    <li>「お取引よりお取組み」。美容師さんがずっと美容師であるために、強い美容サロンづくりを応援する <span class="src doc">p.3</span></li>
+    <li>経営理念の根底は「美容師の離職防止・応援」。イベントの根っこはここ <span class="src mtg">10/8</span></li>
+    <li>対面でのつながり、教育・メニュー開発の支援、ラオス支援や環境活動などの社会貢献 <span class="src doc">p.3</span></li>
+    <li>関西を拠点に約5,000サロン以上との取引、10拠点の教育スタジオ <span class="src pub">公開情報</span>（提案書p.9掲載・出典は貴社サイト）</li>
+  </ul>
+  <h3>2-2　ミラプロの歩み</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>時期</th><th>対象・テーマ</th><th>主な内容と変化</th></tr></thead>
+    <tbody>
+      <tr><td class="k">2015年〜（5年間）</td><td>一般のお客様向け</td><td>約40の美容ブース、約1,500名規模。サロンへの導入効果に課題 <span class="src doc">p.4</span>。当初は体験会形式 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">2022年〜</td><td>美容師中心へ刷新「人生に寄り添う美容」</td><td>顧客との関係づくり、美容師として働く喜び。約4年前の転換 <span class="src doc">p.4</span> <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">2023・2024年</td><td>なりたい美容師／好きな美容のはなし</td><td>対談・技術・働き方・小規模サロン事例。2024年の満足度は97.6% <span class="src doc">p.4・6</span></td></tr>
+      <tr><td class="k">2025年</td><td>10年後の美容の未来</td><td>対談、技術セミナー、約40ブース。11/10（月）梅田サウスホール、10:00〜16:00 <span class="src doc">p.4・5</span></td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:13px;color:var(--sub)">一貫した目的は「関西の美容を盛り上げること」と関係力の強化 <span class="src doc">p.4</span>。テーマ「人生に寄り添う美容を本気で考える日」は4年間使われた <span class="src mtg">10/8</span>。</p>
+  <h3>2-3　過去の企画の中身（貴社説明）</h3>
+  <ul class="c">
+    <li>初回は多業種（ブランドを持つ経営者、建築士、ブライダルプランナー等）を招き、「人生に寄り添う仕事」の共通点を対談 <span class="src mtg">10/8</span></li>
+    <li>取引先の中心は個人店。個人店で成功しているサロンの講演、ショーホールでのママ美容師の活躍の場づくりなどを、毎年色を変えて実施 <span class="src mtg">10/8</span></li>
+    <li>「なぜ美容師になったか」をホワイトボードに書く原点回帰の企画も実施 <span class="src mtg">10/8</span></li>
+    <li>取り上げる問題は社会問題より美容業界の問題（早期離職、美容学校卒業後3年持たない等） <span class="src mtg">10/8</span></li>
+  </ul>
+  <h3>2-4　数字で見る現状</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>指標</th><th>値</th><th>確かさ</th></tr></thead>
+    <tbody>
+      <tr><td class="k">満足度／再来場意向（2024）</td><td>97.6%／98.4% <span class="src pub">公開情報</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">2024年の来場者</td><td>「関係者含め500名以上」（貴社レポート）</td><td><span class="st warn">要整合</span> 与件の500名は関係者除きのため、同列に比べられない</td></tr>
+      <tr><td class="k">現状の実来場（関係者除く）</td><td>約350名と推定（500名−増加目標150名の逆算）<span class="src est">当社推定</span></td><td><span class="st open">未確認</span> 実施報告書で確認</td></tr>
+      <tr><td class="k">出展ブース数</td><td>約40ブース（2025年）。昨年のメーカーは約40社 <span class="src doc">p.5</span> <span class="src mtg">10/8</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">来場者の年代</td><td>40〜50代のベテラン経営者が中心（現場営業の声と来場者比率から）<span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span> 数値の内訳は未受領</td></tr>
+      <tr><td class="k">前回の会場費</td><td>梅田サウスホールは高く、音響設備等を含め約300（万円）規模と発言 <span class="src mtg">10/8</span></td><td><span class="st warn">要確認</span> 聞き取り不鮮明。金額・範囲を再確認</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s3">
+  <h2><span class="n">03</span>解くべき課題</h2>
+  <p class="lead">資料の3課題に、打合せで出た貴社の実感を重ねて整理しました。</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>課題</th><th>貴社資料</th><th>10/8打合せで分かったこと</th></tr></thead>
+    <tbody>
+      <tr><td class="k">① 参加者の広がり</td><td>つながりの深いサロンのリピートが中心。30代や、取引の浅い・未取引の美容師との接点を増やしたい <span class="src doc">p.6</span></td><td>30代オーナーとの取引はあるが、これまでのイベントが刺さっていない。アンケートは好評で、「刺さっていない」と示す明確なデータはない。現場営業の声と来場者比率からの判断 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">② 「行きたい」と感じる魅力</td><td>真面目な内容が中心でエンタメや感性を刺激する体験が不足。同僚や仲間を誘いたくなる理由をつくりたい <span class="src doc">p.6</span></td><td>テーマが重く、会場も展示場のような雰囲気。セミナーだけ参加して帰る人が多く、回遊しない。メーカーブースとテーマがちぐはぐ。若い方が休日にわざわざ来るイベントになっていない <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">③ 集客と運営の仕組み</td><td>営業の声がけに加え、新しい層に届く告知が必要。申込み・受付・セミナー参加管理も来場者目線で見直したい <span class="src doc">p.6</span></td><td>受付QRで過去にトラブルがあり、解消が前提。開催時間が長すぎるという声もある <span class="src mtg">10/8</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box info"><b>貴社の悩みの根幹（打合せでの言葉）</b>「取引がまだ浅い30代のサロンオーナーや新規先の方が、このイベントに来てくれたら」というのが一番の悩み。やりたいことが明確に決まっていない状態で相談しており、アドバイスを期待している。</div>
+</section>
+
+<section id="s4">
+  <h2><span class="n">04</span>ターゲット</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>対象</th><th>位置づけ（資料）</th><th>打合せでの補足</th></tr></thead>
+    <tbody>
+      <tr><td class="k">小規模サロンのオーナー</td><td>30代を中心とする重点ターゲット <span class="src doc">p.7</span></td><td><b>最優先は決定権のある30代オーナー</b>。貴社の取り組みを感じて「取引したい」「面白い」と思ってもらうのがベスト <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">勤務スタイリスト・店長</td><td>オーナーと同じ比重で重視 <span class="src doc">p.7</span></td><td>「欲張れば既存の30代プレイヤーも」。優先度はオーナーの次と読める <span class="src est">当社推定</span> <span class="st warn">要整合</span></td></tr>
+      <tr><td class="k">美容学生</td><td>参加歓迎。平日の授業を考慮し、集客の主軸にはしない <span class="src doc">p.7</span></td><td>言及なし</td></tr>
+      <tr><td class="k">一般のお客様</td><td>対象外。サロン向け価格・取引条件を提示できる環境を確保 <span class="src doc">p.7</span></td><td>言及なし</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="c">
+    <li>特に、取引の浅い・未取引の美容師との新たな接点を重視 <span class="src doc">p.7</span></li>
+    <li>「30代」の年齢範囲、オーナーと勤務の区分は未定義。KPI設計のため確認が必要（Q21）</li>
+    <li>30代のインサイト（参加動機・不参加理由）は公開データが乏しく、現時点は仮説。貴社の実施報告書と事前アンケートで検証する <span class="src est">当社推定</span></li>
+  </ul>
+</section>
+
+<section id="s5">
+  <h2><span class="n">05</span>開催条件</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>項目</th><th>わかっていること</th><th>状態</th></tr></thead>
+    <tbody>
+      <tr><td class="k">開催時期</td><td>2027年11月頃 <span class="src doc">p.9</span>。11月の月曜または火曜 <span class="src mtg">10/8</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">具体日程</td><td>未定。11月の空き状況を見て決める。グラングリーン大阪は2027年11/8（月）を仮押さえ <span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span></td></tr>
+      <tr><td class="k">曜日の補足</td><td>2027年11月の月曜は1・8・15・22・29日、火曜は2・9・16・23・30日。<b>11/23（火）は勤労感謝の日</b>で、グラングリーンの料金区分が休日扱い（150万円）になる可能性がある <span class="src est">当社推定</span></td><td><span class="st open">要確認</span></td></tr>
+      <tr><td class="k">開催時間</td><td>未定。2025年は10:00〜16:00 <span class="src doc">p.5</span>。「長すぎるのでは」という声があり、ゼロベースで見直す <span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span></td></tr>
+      <tr><td class="k">会場</td><td>グラングリーン大阪を候補に検討。会場変更も含めイベントの印象を刷新したい。従来会場・代替会場との比較も歓迎 <span class="src doc">p.9</span>。会場の確定はこれから <span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span></td></tr>
+      <tr><td class="k">会場の比較観点</td><td>ステージ・展示体験・交流の配置、音の干渉、受付や回遊動線、混雑時の収容人数と必要スタッフ数 <span class="src doc">p.9</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">入場料</td><td>従来は無料。有料化は参加のハードルが上がるため慎重。当方がギフティング施策次第で有料の可能性に言及 <span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span></td></tr>
+      <tr><td class="k">下見</td><td>グラングリーン大阪を訪問予定（日程未定）<span class="src mtg">10/8</span></td><td><span class="st open">要調整</span></td></tr>
+    </tbody>
+  </table></div>
+  <h3>グラングリーン大阪の利用条件（施設公式資料）<span class="src pub">公開情報</span></h3>
+  <div class="grid2">
+    <div class="card"><h4>料金（税別）</h4>
+      <ul class="c"><li>平日100万円／休日（土日祝）150万円</li><li>設営・撤去50万円／日、時間外10万円／時間</li><li>別途：時間外立会費・備品・電気工事・警備等</li><li>販売行為を行う場合は売上想定額の10%を手数料として納付</li></ul></div>
+    <div class="card"><h4>条件・進め方</h4>
+      <ul class="c"><li>約1,500㎡・屋根付き（半屋外）、基本利用9:00〜22:00</li><li>空き状況の開示は原則「利用日の1年前」から</li><li>催事概要書の審査（美観・競合商材・安全性/法令・レイアウト）</li><li>入金は実施7営業日前、キャンセル料は60日前〜16日前50%、15日前〜100%</li></ul></div>
+  </div>
+  <div class="box warn"><b>留意</b>貴社は11/8（月）を仮押さえ済みと発言したが、施設資料上の空き開示は「利用日の1年前から」。仮押さえの扱い（正式な押さえか、先行相談か）を確認する。メーカーブースが「競合商材」審査や販売行為の手数料に該当するかも要確認（Q07）。</div>
+</section>
+
+<section id="s6">
+  <h2><span class="n">06</span>予算・協賛</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>項目</th><th>内容</th><th>状態</th></tr></thead>
+    <tbody>
+      <tr><td class="k">総額</td><td>1,500万円以内。従来も会場・動画・ブース・出演者等を含め約1,500万円 <span class="src doc">p.10</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">税の扱い</td><td><b>税別</b>。会場費・音響等の諸費用すべて込みの金額 <span class="src mtg">10/8</span>（資料では「初回協議」だった）</td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">協賛・直接支払分</td><td>協賛の見込みと貴社の直接支払い分は<b>提案範囲外</b>。無視してよい <span class="src mtg">10/8</span>（資料では「初回協議」だった）</td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">見積の形</td><td>全体の費用が分かる見積を希望。企画制作、会場・付帯設備、装飾・ブース、音響照明、出演者・交通費、動画・告知制作、申込受付、運営、設営撤去、予備費などを明示。予算外の費用は明示 <span class="src doc">p.10</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">費用対効果</td><td>1,500万円でも現状でも「かかりすぎ」の印象があり、大きく逸脱したくない。ただし来場見込みが非常に多いなら1,500万円でも問題ない。1人あたりの費用で判断 <span class="src mtg">10/8</span></td><td><span class="st tmp">暫定</span> 許容単価は未確認（Q10）</td></tr>
+      <tr><td class="k">提案方針</td><td>会場込みのミドルラインで、1,500万円以内に収める形で提案する <span class="src mtg">10/8</span></td><td><span class="st ok">確定</span></td></tr>
+      <tr><td class="k">メーカーの出展価値</td><td>美容師との接点や体験・相談の機会を設計し、回遊を促す構成へ。過去の約40ブースや協賛メニューは参考で、次回の構成は相談 <span class="src doc">p.10</span></td><td><span class="st tmp">暫定</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box info"><b>参考計算（当社試算・確定ではありません）</b>
+  実来場500名で割ると、1,500万円は1人あたり3.0万円。来場が700名なら約2.1万円。前回は「約350名」（逆算の推定）だったとすると、同じ総額で約4.3万円。費用対効果の見せ方として、提案書では「1人あたり費用」を併記する想定 <span class="src est">当社推定</span></div>
+</section>
+
+<section id="s7">
+  <h2><span class="n">07</span>残す／変える／避ける</h2>
+  <div class="grid2">
+    <div class="card"><h4>残すもの <span class="st ok">確定</span></h4>
+      <ul class="c"><li>メーカー約40社のブース出展（協賛の根幹、商談につながる場）</li><li>CSR活動（ラオス支援等）の報告の場。ブーストして見せたい</li><li>根底の理念「美容師がずっと美容師であるために」</li></ul>
+      <span class="src mtg">10/8</span></div>
+    <div class="card"><h4>変えたいもの <span class="st ok">確定</span></h4>
+      <ul class="c"><li>重い雰囲気、固いテーマ（テーマはゼロベースで可）</li><li>ステージ・セミナーの構成（見直し可）</li><li>メーカーブースとテーマのちぐはぐさ</li><li>開催時間（長すぎる声）／入場料は慎重に検討</li></ul>
+      <span class="src mtg">10/8</span></div>
+    <div class="card"><h4>避けたいもの <span class="st ok">確定</span></h4>
+      <ul class="c"><li>他の代理店・メーカーが行っているヘアショーや、音楽フェス型との丸かぶり</li><li>「弊社がやっても仕方ない」ことの踏襲</li></ul>
+      <span class="src mtg">10/8</span></div>
+    <div class="card"><h4>ゴール（貴社の言葉）</h4>
+      <ul class="c"><li>来場者が「美容師になって良かった」「もっと頑張りたい」と思う</li><li>それをきっかけに関西の美容が盛り上がる</li><li>取引の浅い30代オーナー・新規先に来てもらう</li></ul>
+      <span class="src mtg">10/8</span></div>
+  </div>
+  <div class="box note"><b>ベンチマーク</b>同業界に「こうしたい」と思える参考イベントは見つかっていない。他業界にあるかもしれない、という感覚。大目的は残したまま、真面目さを残しつつもっとポップにしたい <span class="src mtg">10/8</span></div>
+</section>
+
+<section id="s8">
+  <h2><span class="n">08</span>コンセプト・体験の方向性</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>項目</th><th>与件の内容</th></tr></thead>
+    <tbody>
+      <tr><td class="k">テーマの方向性案</td><td>「美容師であることが、もっと楽しみになる一日」。正式なコンセプト・名称は提案を希望 <span class="src doc">p.8</span></td></tr>
+      <tr><td class="k">参加したくなる楽しさ</td><td>ライブ感のある演出、自分も参加できる体験、自然に交流できる時間。写真・映像・空間の統一感を求める <span class="src doc">p.8</span></td></tr>
+      <tr><td class="k">明日の仕事につながる実感</td><td>お客様に試したいことや新たな可能性に出会える。帰る時に、美容師の仕事への誇りや期待が高まる <span class="src doc">p.8</span></td></tr>
+      <tr><td class="k">内容・出演者・演出</td><td>未定。貴社の想いと結びつく自由な提案を歓迎 <span class="src doc">p.8</span></td></tr>
+      <tr><td class="k">テーマの自由度</td><td>「人生に寄り添う」に4年間引っ張られると考えが固くなる。<b>テーマはゼロベースで可</b>。根底は経営理念 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">当社が提示した仮案</td><td>「自分の明日がここで見つかる」＋「共感と実利の共存（仲間意識と、採用・売上など経営的価値）」。貴社の反応は好意的で、特段の否定はなし <span class="src mtg">10/8</span>（提案書p.18〜20）</td></tr>
+      <tr><td class="k">アワード案</td><td>美容師が投票・審査する企画。メーカーを競わせる点は貴社にもリスクがあり得るため、設計は協議が必要 <span class="src mtg">10/8</span> <span class="st tmp">暫定</span></td></tr>
+      <tr><td class="k">ギフティング案</td><td>美容師限定のギフトで新規のライト層を集める案を提示。有料チケットとの組み合わせ事例を紹介。貴社の可否判断は未確認 <span class="src mtg">10/8</span> <span class="st open">未確認</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s9">
+  <h2><span class="n">09</span>集客</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>項目</th><th>与件の内容</th></tr></thead>
+    <tbody>
+      <tr><td class="k">導線の考え方</td><td>営業担当の声がけに加え、SNS・LINE・出演者・参加サロン等から、美容師本人が内容を知り申し込める導線 <span class="src doc">p.11</span></td></tr>
+      <tr><td class="k">発信の質</td><td>誰に向けたイベントか、何が体験できるかを短時間で伝える。告知ビジュアルや短い動画も会場の世界観と統一 <span class="src doc">p.11</span></td></tr>
+      <tr><td class="k">求める計画</td><td>必要な申込数、媒体別の施策と費用、告知開始からのスケジュール、来場前の案内・リマインドまで <span class="src doc">p.11</span></td></tr>
+      <tr><td class="k">成果の見方</td><td>申込数と実来場数を区別し、初参加・30代・取引状況別の成果を把握 <span class="src doc">p.11</span></td></tr>
+      <tr><td class="k">当社が示した方針</td><td>既存来場者への再来場促進が主軸。新規の30代は有料広告・他チャンネル・出演者発信で獲得 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">現状の営業声がけ</td><td>営業担当の声がけが中心。「どんなイベントでも来てくれる層」がいる一方、クローズドな印象になっている <span class="src mtg">10/8</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box note"><b>数値の扱い</b>必要申込数・チャネル別人数・広告費の試算は、貴社の過去実績（申込→来場の歩留まり、チャネル別内訳）を受領してから設計する。現時点の提案書では構成比（約45/20/15/10/10%）を「仮置き」として示している <span class="src est">当社推定</span></div>
+</section>
+
+<section id="s10">
+  <h2><span class="n">10</span>申込・受付・計測</h2>
+  <h3>10-1　これまでの課題と求める設計 <span class="src doc">資料p.12</span></h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>これまでに起きた課題</th><th>次回に求める設計</th></tr></thead>
+    <tbody>
+      <tr><td>申込後、受付用QRが見つからない人がいた</td><td>QRの再案内・表示導線を改善。氏名等で照合できる補助受付も用意</td></tr>
+      <tr><td>お連れ様機能の利用でトラブルが増えた</td><td>一人ずつ識別できる参加者管理。同伴者の通知や別々の来場にも対応</td></tr>
+      <tr><td>会場と小ホールを1つのQRで受付できなかった</td><td>1人1つのQRで会場入場と予約済みセミナーを管理する方式を検討</td></tr>
+      <tr><td>小ホールは紙チケットを配布・回収していた</td><td>予約・定員・参加確認を連携し、紙の受け渡しと手作業を減らす</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:13px;color:var(--sub)">イーベ！の設定改善・継続と他方式を比較し、サービスの制約か運用の課題かも確認する <span class="src doc">p.12</span>。打合せでも「QRのトラブルを解消する前提」と確認 <span class="src mtg">10/8</span></p>
+  <h3>10-2　受付体制と計測 <span class="src doc">資料p.13</span></h3>
+  <ul class="c">
+    <li>500名以上の来場に対応する受付体制。通常受付と、QR不明・未申込・予約照合の対応を整理</li>
+    <li>ピーク時の人数、スタッフ配置、再入場、通信不調時の対応も検討</li>
+    <li>最優先で把握：重複・関係者を除く実来場数、時間帯別の入場数、セミナーの実参加数</li>
+    <li>年代・役職・初参加・取引状況も、入力負担に配慮して取得</li>
+    <li>退場・滞在時間は運営負担と比較。従来は入場受付のみ。全員記録か傾向把握か、費用と精度の異なる方法を提案してほしい</li>
+    <li>美容師・美容学生・関係者は分けて集計。開催後の相談や取組みへのつながりも確認</li>
+  </ul>
+</section>
+
+<section id="s11">
+  <h2><span class="n">11</span>依頼された提案項目（資料p.14）</h2>
+  <p class="lead">貴社が「初回提案で確認したい」と書いている5分類です。ここが採点表になります。</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>提案項目</th><th>貴社が確認したい内容</th><th>提案書での対応</th></tr></thead>
+    <tbody>
+      <tr><td class="k">コンセプト・体験</td><td>30代が参加したくなる理由と、リーディアルらしさの表現</td><td>p.18〜20（コンセプト・二層プログラム）</td></tr>
+      <tr><td class="k">会場・コンテンツ</td><td>会場比較、目玉企画、出演者の方向性、展示・交流の構成</td><td>p.22〜26（体験設計）、p.28〜34（会場）</td></tr>
+      <tr><td class="k">集客・クリエイティブ</td><td>新たな来場者に届く告知、ビジュアル方針、集客計画</td><td>p.36〜40</td></tr>
+      <tr><td class="k">申込・当日運営</td><td>受付方式、セミナー管理、回遊動線、人員配置、計測方法</td><td>p.26、p.42〜43</td></tr>
+      <tr><td class="k">予算・実行体制</td><td>総額と費用内訳、業務分担、準備工程、類似案件の実績</td><td>p.45〜46。<span class="st warn">類似実績・業務分担は未掲載</span></td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:13px;color:var(--sub)">初回相談では、背景・条件を共有し、実現性のある方向性と概算費用から検討したいとのこと <span class="src doc">p.14</span>。</p>
+</section>
+
+<section id="s12">
+  <h2><span class="n">12</span>進め方・競合・体制</h2>
+  <div class="tablewrap"><table>
+    <tbody>
+      <tr><td class="k">相談先</td><td>現在3社。旧担当（TMC）、商談中の白点、新東通信 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">旧担当について</td><td>コンパクトなショッピングモール規模のイベント中心の会社に依頼していた。イベントが1年空いたことと、若い世代を囲いたいという理由で選定し直している <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">選定の流れ</td><td>各社の企画内容をもとに概算見積を都度提出してもらい、貴社が依頼先を判断 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">見積の期待</td><td>「この企画を実現するならこれくらいの費用」という概算。会場確定（2026年11月〜）に向けた逆算スケジュールで提出 <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">会場手配</td><td>当社の対応も含めて検討。工程は提案段階で示してほしい <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">窓口・連絡</td><td>貴社：長谷川様（営業企画部）、橋本様。連絡はメールで、当社の竹内・成瀬を同時宛先に <span class="src mtg">10/8</span></td></tr>
+      <tr><td class="k">当社の強み（訴求軸）</td><td>広告会社機能を網羅（制作・メディアバイイング・展示会イベント運営・Web広告・SNS）。グループ会社バズの若年・女性ネットワーク。業界メディア「エステティック通信」の知見。成瀬は過去にディーラー業界での協業経験あり <span class="src mtg">10/8</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="box warn"><b>社内向けメモ</b>競合の社名は貴社が口頭で伝えた内容。提案書・メール等、社外には出さない。</div>
+</section>
+
+<section id="s13">
+  <h2><span class="n">13</span>整合性チェック（食い違い・曖昧な点）</h2>
+  <p class="lead">資料と打合せの間、または資料内でそろっていない点です。提案書の記述は、この整理を前提にしています。</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>論点</th><th>内容</th><th>対応</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>「500名」の定義</td><td>p.7は「関係者を除く実来場500名以上（現状+150名）」。p.9は「500名は累計実来場者の目標」。2024年実績は「関係者含め500名以上」で、数え方が異なる</td><td>提案書は「関係者除きの実来場」で統一。「累計」の意味は貴社に確認（Q03）</td></tr>
+      <tr><td>2</td><td>ターゲットの優先順位</td><td>資料はオーナーと勤務スタイリスト・店長を同比重。打合せは「決定権のある30代オーナーが最優先」</td><td>最優先をオーナーに寄せ、同世代の店長・スタイリストを対象に併記（提案書p.5・16）</td></tr>
+      <tr><td>3</td><td>1,500万円の意味</td><td>「以内」だが、貴社は現状でも割高の印象。来場数が多ければ許容という条件付き</td><td>1,500万円は上限として扱い、1人あたり費用で説明する</td></tr>
+      <tr><td>4</td><td>税・協賛の扱い</td><td>資料は「初回協議」。打合せで税別、協賛・直接支払は範囲外と確定</td><td>解決済み。提案書p.45に反映</td></tr>
+      <tr><td>5</td><td>会場の仮押さえと開示時期</td><td>11/8（月）は仮押さえ済みと発言。施設の開示は1年前から</td><td>貴社の押さえ方を確認（Q06）</td></tr>
+      <tr><td>6</td><td>前回会場費の金額</td><td>「約300」と発言したが単位・範囲が聞き取り不鮮明</td><td>前回の見積・精算の参照可否とあわせて確認（Q09）</td></tr>
+      <tr><td>7</td><td>体験ブースとテーマ</td><td>40社ブースは残す一方、「ちぐはぐ」を直したい。ブース数・配置・見せ方のどこまで変えられるか不明</td><td>ブースは約40社を土台に再編する前提で提案。変更の幅を確認</td></tr>
+      <tr><td>8</td><td>過去の歩み</td><td>資料は2015年から5年間が一般向け。打合せは約4年前に美容師向けへ転換（2022年と整合）</td><td>整合。コロナ期の休止は資料に記載なし</td></tr>
+      <tr><td>9</td><td>アンケートと実感</td><td>満足度は高いが、現場の声は40〜50代中心。因果は未検証</td><td>実施報告書の再集計で30代の満足度を確認（Q01・Q02）</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s14">
+  <h2><span class="n">14</span>10/8打合せで確認できたこと</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>確認事項（資料p.15の整理事項に対応）</th><th>結論</th></tr></thead>
+    <tbody>
+      <tr><td>R01</td><td>予算の税込／税別</td><td>税別。会場費・音響等の諸費用込み</td></tr>
+      <tr><td>R02</td><td>協賛見込み・直接支払分</td><td>提案範囲外</td></tr>
+      <tr><td>R03</td><td>開催時期・曜日</td><td>2027年11月の月曜または火曜</td></tr>
+      <tr><td>R04</td><td>会場候補</td><td>グラングリーン大阪。11/8（月）仮押さえ済み、下見はこれから</td></tr>
+      <tr><td>R05</td><td>入場料</td><td>従来無料。有料化は慎重に検討</td></tr>
+      <tr><td>R06</td><td>テーマ・コンセプト</td><td>ゼロベースで見直し可。根底は経営理念</td></tr>
+      <tr><td>R07</td><td>残すもの</td><td>約40社のブース、CSR（ラオス等）の報告の場</td></tr>
+      <tr><td>R08</td><td>連絡方法</td><td>メール（当社 竹内・成瀬宛）</td></tr>
+      <tr><td>R09</td><td>見積の提出時期</td><td>会場確定（2026年11月）から逆算して概算見積を提出</td></tr>
+      <tr><td>R10</td><td>過去実績</td><td>貴社が実施報告書（コンテンツ内容・来場者情報等）を資料にまとめて共有</td></tr>
+      <tr><td>R11</td><td>ベンチマーク／避けたい型</td><td>ベンチマークなし。ヘアショー型・音楽フェス型の丸かぶりは避ける</td></tr>
+      <tr><td>R12</td><td>競合状況</td><td>3社比較（社名は社内限り）</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s15">
+  <h2><span class="n">15</span>未確認・要確認事項</h2>
+  <p class="lead">実施報告書の受領で埋まるもの（◎）と、別途ヒアリングが必要なものに分けています。優先度は提案の精度への影響で付けました。</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>確認したいこと</th><th>現状わかっていること</th><th>確認先</th><th>優先</th></tr></thead>
+    <tbody>
+      <tr><td>Q01</td><td>現状の実来場数（関係者除く）と内訳</td><td>2024年は関係者含め500名以上。実数は約350名と逆算（推定）</td><td>◎実施報告書</td><td>高</td></tr>
+      <tr><td>Q02</td><td>申込→実来場の歩留まり、チャネル別内訳、既存／新規・年代・取引状況の比率</td><td>データ未受領</td><td>◎実施報告書</td><td>高</td></tr>
+      <tr><td>Q03</td><td>「500名は累計実来場者」の意味（延べか、重複除外の実人数か）</td><td>資料p.7とp.9で表現が異なる</td><td>メール</td><td>高</td></tr>
+      <tr><td>Q06</td><td>会場の押さえ方・窓口、下見日程、催事概要書の提出主体</td><td>11/8（月）仮押さえ済み</td><td>メール／下見</td><td>高</td></tr>
+      <tr><td>Q09</td><td>前回の費目別金額（会場約300万規模の範囲、音響等の内訳）</td><td>金額は聞き取り不鮮明</td><td>メール</td><td>高</td></tr>
+      <tr><td>Q10</td><td>費用対効果の許容ライン（1人あたり何円まで）と比較軸</td><td>「かけすぎは問題、来場が多ければ許容」</td><td>次回打合せ</td><td>高</td></tr>
+      <tr><td>Q17</td><td>3社比較の評価基準、決定時期、稟議の流れ、提案の締切</td><td>見積を都度受けて貴社が判断</td><td>次回打合せ</td><td>高</td></tr>
+      <tr><td>Q04</td><td>出展メーカー約40社の継続意向、出展条件の水準</td><td>協賛は範囲外だが、ブース設計の前提</td><td>◎実施報告書／メール</td><td>中</td></tr>
+      <tr><td>Q05</td><td>開催時間の短縮方針（2025年は10〜16時）</td><td>長すぎる声あり</td><td>次回打合せ</td><td>中</td></tr>
+      <tr><td>Q07</td><td>メーカーブースでの販売行為・受注の有無（施設の手数料10%、競合商材審査）</td><td>施設資料のみ</td><td>貴社／施設</td><td>中</td></tr>
+      <tr><td>Q08</td><td>ステージ・セミナーの会場構成（前回は会場＋小ホール。グラングリーンは約1,500㎡の一体空間）</td><td>音の干渉と定員管理が論点</td><td>下見</td><td>中</td></tr>
+      <tr><td>Q11</td><td>入場料の方針（無料維持か、設計次第で有料か）</td><td>慎重</td><td>次回打合せ</td><td>中</td></tr>
+      <tr><td>Q12</td><td>出演者の予算枠・起用方針（貴社人脈／当社グループ活用）</td><td>未定</td><td>次回打合せ</td><td>中</td></tr>
+      <tr><td>Q13</td><td>動画・写真の使用許諾（2024・2025素材、出演者の肖像）</td><td>未確認。提案書の画像は提出前に許諾確認が必要</td><td>メール</td><td>中</td></tr>
+      <tr><td>Q14</td><td>イーベ！継続可否、QRトラブルの原因（サービス制約か運用か）</td><td>課題は資料p.12の4点</td><td>メール</td><td>中</td></tr>
+      <tr><td>Q20</td><td>ターゲットの優先順位（オーナー最優先か、勤務と同比重か）</td><td>資料と打合せで差</td><td>次回打合せ</td><td>中</td></tr>
+      <tr><td>Q21</td><td>「30代」の年齢範囲、オーナー／勤務の区分</td><td>未定義</td><td>メール</td><td>中</td></tr>
+      <tr><td>Q15</td><td>会場の通信環境（QR読み取りの冗長化）</td><td>半屋外のため要実測</td><td>下見</td><td>低</td></tr>
+      <tr><td>Q16</td><td>自社商材（LIMOR等）のサンプル配布の扱い（薬機法・小分け配布不可）</td><td>提案書は言及のみ</td><td>メール</td><td>低</td></tr>
+      <tr><td>Q18</td><td>社名・ブランドの混同リスク</td><td>調査Aの留意事項</td><td>当社確認</td><td>低</td></tr>
+      <tr><td>Q19</td><td>CSR（ラオス）報告の枠（時間・形式）</td><td>ブーストして見せたい</td><td>次回打合せ</td><td>低</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s16">
+  <h2><span class="n">16</span>評価ポイント仮説（提案で必ず答えること）</h2>
+  <p class="lead">貴社の発言から、比較検討で見られそうな点を10個に絞りました。提案書の自己チェックに使います。</p>
+  <ol class="c">
+    <li><b>決定権のある30代オーナーが「行きたい」と思う理由</b>は何か（共感だけでなく経営の実利）</li>
+    <li><b>セミナーだけで帰らない回遊</b>の仕掛けは何か</li>
+    <li><b>ブースとテーマの一貫性</b>をどう作るか（40社を活かしたまま）</li>
+    <li><b>ヘアショー型・音楽フェス型と丸かぶりしない</b>独自の立ち位置は何か</li>
+    <li><b>1人あたりの費用対効果</b>を、数字でどう示すか</li>
+    <li><b>会場コストを抑えつつ印象を刷新</b>できるか（前回は音響込みで約300万規模）</li>
+    <li><b>QR受付の課題</b>が確実に解消される設計か</li>
+    <li><b>開催時間</b>は来場者目線で適正か</li>
+    <li><b>必要申込数・チャネル・費用</b>まで落とした集客計画があるか（実施報告書を受けて）</li>
+    <li><b>類似実績と体制</b>があるか（当社の実績は未掲載。準備が必要）</li>
+  </ol>
+  <div class="box info"><b>貴社の言葉で言い換えると</b>「やりたいことが明確ではない中でアドバイスがほしい」。選ばれるのは、課題を言い当てて、具体案とコスト感まで示せる会社、というのが当社の見立て <span class="src est">当社推定</span></div>
+</section>
+
+<section id="s17">
+  <h2><span class="n">17</span>アクション</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>担当</th><th>内容</th><th>期日</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cb"></span></td><td>リーディアル</td><td>過去のイベント実施報告書（コンテンツ内容・来場者情報等）を資料にまとめて共有 <span class="src mtg">10/8</span></td><td>未設定（催促の目安は打合せ後1週間）<span class="src est">当社案</span></td></tr>
+      <tr><td><span class="cb"></span></td><td>新東通信</td><td>企画概算見積を提出（11月の会場確定に向けた逆算スケジュール）<span class="src mtg">10/8</span></td><td>未設定。実施報告書の受領後に日程を調整 <span class="src est">当社案</span></td></tr>
+      <tr><td><span class="cb"></span></td><td>新東通信</td><td>10/8打合せ反映版の提案書（50枚）と、フォローアップメールを送付</td><td>10/8中（下書き作成済み）</td></tr>
+      <tr><td><span class="cb"></span></td><td>双方</td><td>グラングリーン大阪の会場下見（11/8月は仮押さえ済み）<span class="src mtg">10/8</span></td><td>日程調整</td></tr>
+      <tr><td><span class="cb"></span></td><td>双方</td><td>今後の連絡はメールで（新東通信 竹内・成瀬宛）<span class="src mtg">10/8</span></td><td>常時</td></tr>
+      <tr><td><span class="cb"></span></td><td>新東通信</td><td>当社の類似実績・体制・業務分担案を提案書に追加（p.45以降）</td><td>概算見積と同時 <span class="src est">当社案</span></td></tr>
+      <tr><td><span class="cb"></span></td><td>新東通信</td><td>提案書で使う画像（貴社サイト・各社公式サイト由来）の使用許諾を確認</td><td>提出前</td></tr>
+      <tr><td><span class="cb"></span></td><td>新東通信</td><td>景品・抽選まわりの法務確認（景表法・賭博罪）、薬機法の表現確認</td><td>企画確定時</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s18">
+  <h2><span class="n">18</span>提案書（10/8打合せ反映版・50枚）との対応表</h2>
+  <p class="lead">与件の項目が、提案書のどこで答えられているかです。ページ番号は反映版のものです。</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>与件の項目</th><th>提案書のページ</th><th>状況</th></tr></thead>
+    <tbody>
+      <tr><td>目標（500名・30代・新規層・40ブース・予算）</td><td>p.5、47</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>貴社の課題認識・打合せ内容の整理</td><td>p.6〜7（新規）、8</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>貴社の強み、同業・他社の事例</td><td>p.9〜15</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>ターゲットと30代のインサイト</td><td>p.16〜17</td><td><span class="st tmp">仮説（要検証）</span></td></tr>
+      <tr><td>コンセプト・体験の方向性</td><td>p.18〜21</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>会場の比較、利用条件</td><td>p.28〜34</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>目玉企画、回遊、一日の流れ</td><td>p.22〜26</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>集客計画（構成比・ギフティング・告知）</td><td>p.36〜40</td><td><span class="st tmp">人数・費用は未提示</span></td></tr>
+      <tr><td>申込・受付（1人1QR）</td><td>p.26、42</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>計測・アンケート</td><td>p.43、47</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>総額・費目の構成</td><td>p.45</td><td><span class="st tmp">金額内訳は未提示</span></td></tr>
+      <tr><td>スケジュール</td><td>p.46</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>法令・リスク</td><td>p.48</td><td><span class="st ok">反映済</span></td></tr>
+      <tr><td>業務分担・実行体制</td><td>p.49（項目のみ）</td><td><span class="st warn">未掲載</span></td></tr>
+      <tr><td>当社の類似実績</td><td>—</td><td><span class="st warn">未掲載</span></td></tr>
+      <tr><td>前回会場費・費用対効果（1人あたり）</td><td>p.45に方針のみ</td><td><span class="st tmp">一部</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s19">
+  <h2><span class="n">19</span>参照資料・注意</h2>
+  <ul class="c">
+    <li>MIRARERU_2027_企画相談資料.pdf（貴社作成・15枚）</li>
+    <li>1008_ledeal_リーディアル様_MIRARERU2027イベント企画ヒアリング.txt（10/8打合せ議事録）</li>
+    <li>MIRARERU2027イベント企画運営提案書_1008打合せ反映版（pptx／pdf・50枚）</li>
+    <li>MIRARERU2027調査資料_1009版（17枚）、ファクトチェック記録_1008版_社内用.md、準備書×1009版_対応表_社内用.md</li>
+    <li>リサーチ_20260930／調査結果（調査A〜D）、統合メモ_261019_社内用.md</li>
+  </ul>
+  <div class="box warn"><b>取り扱い</b>この書類には競合の社名、前回の会場費、社内の見立てが含まれます。クライアントには共有しないでください。共有する場合は、第5〜7章と第14章をベースに別途作成します。</div>
+</section>
+
+</main>
+<footer>与件整理書｜MIRARERU project 2027｜株式会社新東通信 エステティック通信チーム｜2026.10.08｜社内用</footer>
+</div>
+</body>
+</html>
